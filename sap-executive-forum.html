@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMEA IBM SAP Executive Forum - Sep 15-17 Rome</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            padding: 30px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .tagline {
+            font-size: 1.5em;
+            font-style: italic;
+            margin-top: 15px;
+            opacity: 0.95;
+        }
+
+        .footer-info {
+            font-size: 1.1em;
+            margin-top: 20px;
+            opacity: 0.9;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: #E5F6FF;
+            border-radius: 12px;
+            padding: 18px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow-y: auto;
+            height: 75vh;
+            max-height: 75vh;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        .card-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+            position: sticky;
+            top: 0;
+            background: #E5F6FF;
+            z-index: 10;
+        }
+
+        .info-box {
+            background: white;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 4px solid #667eea;
+            position: relative;
+        }
+
+        .info-box:hover {
+            background: #f8f9ff;
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+        }
+
+        .info-box-title {
+            font-weight: bold;
+            color: #667eea;
+            font-size: 0.95em;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .info-box-title::after {
+            content: '▼';
+            font-size: 0.8em;
+            transition: transform 0.3s ease;
+        }
+
+        .info-box:hover .info-box-title::after {
+            transform: rotate(180deg);
+        }
+
+        .info-box-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, margin-top 0.4s ease, opacity 0.4s ease;
+            opacity: 0;
+            color: #555;
+            line-height: 1.4;
+            font-size: 0.88em;
+        }
+
+        .info-box:hover .info-box-content {
+            max-height: 1000px;
+            margin-top: 12px;
+            opacity: 1;
+        }
+
+        .bullet-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .bullet-list li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .bullet-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .section-label {
+            font-weight: bold;
+            color: #764ba2;
+            margin-top: 15px;
+            margin-bottom: 8px;
+        }
+
+        .resources-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .resources-card .card-title {
+            color: black;
+            border-bottom-color: black;
+        }
+
+        .resources-card .info-box {
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .resources-card .info-box:hover {
+            background: white;
+        }
+
+        .resources-card .link-item {
+            color: #667eea;
+        }
+
+        .link-item {
+            display: block;
+            color: #667eea;
+            text-decoration: none;
+            padding: 10px 15px;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+            border-left: 4px solid #667eea;
+        }
+
+        .link-item:hover {
+            background: #f8f9ff;
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .link-item::before {
+            content: '🔗 ';
+            margin-right: 8px;
+        }
+
+        @media (max-width: 1200px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .card {
+                height: auto;
+                max-height: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .tagline {
+                font-size: 1.2em;
+            }
+            
+            .card {
+                height: auto;
+                max-height: none;
+            }
+        }
+
+        .hover-hint {
+            text-align: center;
+            color: white;
+            font-size: 0.9em;
+            margin-top: 20px;
+            opacity: 0.8;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 0.4; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>IBM SAP Executive Forum EMEA 2026</h1>
+            <div class="tagline">Where Vision Meets Velocity - Transformation in the Age of Agentic AI</div>
+            <div class="footer-info">September 15-17, 2026 | Rome, Italy</div>
+        </header>
+
+        <div class="hover-hint">💡 Hover over each box to reveal details</div>
+
+        <div class="grid">
+            <!-- Event Main Message Card -->
+            <div class="card">
+                <div class="card-title">Event Overview</div>
+                
+                <div class="info-box">
+                    <div class="info-box-title">Objective</div>
+                    <div class="info-box-content">
+                        Drive demand generation opportunities, advance existing SAP pipeline, strengthen client relationships, and keep clients informed on new capabilities and key areas of joint focus.
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-box-title">Themes</div>
+                    <div class="info-box-content">
+                        Focused on joint priorities and customer needs, with an emphasis on peer-to-peer insights and client-led knowledge sharing.
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-box-title">Audience</div>
+                    <div class="info-box-content">
+                        <strong>Target:</strong> C-suite executives<br>
+                        <strong>Mix:</strong> 80% existing EPF clients / 20% new clients
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-box-title">Expected Outcomes</div>
+                    <div class="info-box-content">
+                        <ul class="bullet-list">
+                            <li>C-suite audience engagement</li>
+                            <li>40+ clients attending</li>
+                            <li>SQOR: $4M</li>
+                            <li>WR: $1M</li>
+                        </ul>
+                    </div>
+                </div>
+                <img src="image2.png" alt="IBM Logo" style="width: 100%; height: auto; margin-top: 15px; border-radius: 8px;">
+            </div>
+
+            <!-- Event Experience Card -->
+            <div class="card">
+                <div class="card-title">Event Experience</div>
+
+                <div class="info-box">
+                    <div class="info-box-title">Executive Opening Session</div>
+                    <div class="info-box-content">
+                        Senior leaders from IBM and SAP setting the strategic context and joint vision
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-box-title">Client Case Studies</div>
+                    <div class="info-box-content">
+                        Real-world SAP client case studies showcasing business impact, transformation journeys, and outcomes
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-box-title">Fireside Chats</div>
+                    <div class="info-box-content">
+                        Authentic perspectives, lessons learned, and practical insights from industry leaders
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-box-title">Interactive Panels</div>
+                    <div class="info-box-content">
+                        Panel discussions with clients and experts exploring key industry challenges and opportunities
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-box-title">IBM Thought Leadership</div>
+                    <div class="info-box-content">
+                        Presentations highlighting innovation, emerging trends, and future-focused capabilities
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-box-title">Peer-to-Peer Engagement</div>
+                    <div class="info-box-content">
+                        Meaningful exchange of experiences, best practices, and ideas among executives
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-box-title">Networking Experiences</div>
+                    <div class="info-box-content">
+                        Curated networking designed to foster relationship building in an informal setting
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-box-title">Rome Activities</div>
+                    <div class="info-box-content">
+                        Exclusive networking activities in Rome, creating memorable shared experiences and deeper connections
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-box-title">Inspirational Keynote</div>
+                    <div class="info-box-content">
+                        Forward-looking insights and energizing perspectives to close the event
+                    </div>
+                </div>
+                <img src="image3.png" alt="Rome Building" style="width: 100%; height: auto; margin-top: 15px; border-radius: 8px;">
+            </div>
+
+            <!-- Call to Action Card -->
+            <div class="card">
+                <div class="card-title">Call to Action</div>
+
+                <div class="info-box">
+                    <div class="info-box-title">Nominate Your Client</div>
+                    <div class="info-box-content">
+                        Each client must be approved by the legal team before being invited to attend the event
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-box-title">Nominate Yourself</div>
+                    <div class="info-box-content">
+                        IBMers need to nominate themselves as well if interested in attending the event
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-box-title">Check Nomination Status</div>
+                    <div class="info-box-content">
+                        Visit the dashboard to see all nominations and their status in real time
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-box-title">Event Internal Page</div>
+                    <div class="info-box-content">
+                        Bookmark the event w3 page for constant updates on the event planning
+                    </div>
+                </div>
+                <img src="image4.png" alt="Table" style="width: 100%; height: auto; margin-top: 15px; border-radius: 8px;">
+            </div>
+
+            <!-- Resources Card -->
+            <div class="card resources-card">
+                <div class="card-title">Resources</div>
+
+                <a href="#" class="link-item">Nomination Tool</a>
+                <a href="#" class="link-item">Nominate Yourself</a>
+                <a href="#" class="link-item">Nomination Dashboard</a>
+                <a href="#" class="link-item">Event W3 Internal Page</a>
+                <a href="#" class="link-item">Weekly Executive Forum Office Hour Calls</a>
+                <a href="#" class="link-item">Event Landing Page</a>
+                <a href="#" class="link-item">Slack Channel: #ibm-sap_executive-forum-emea</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Add click functionality for mobile devices
+        const infoBoxes = document.querySelectorAll('.info-box');
+        infoBoxes.forEach(box => {
+            box.addEventListener('click', function() {
+                this.classList.toggle('active');
+            });
+        });
+
+        // Add entrance animation
+        window.addEventListener('load', () => {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 50);
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>
